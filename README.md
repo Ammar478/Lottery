@@ -1,0 +1,2 @@
+# Lottery
+new Ethereum contact 
