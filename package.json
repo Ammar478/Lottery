@@ -1,8 +1,11 @@
 {
-  "name": "inbox-boilerplate",
+  "name": "lottery",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "new Ethereum contact",
+  "main": "compiler.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "test": "mocha"
   },
@@ -11,9 +14,10 @@
   "dependencies": {
     "@truffle/hdwallet-provider": "^2.1.11",
     "ganache-cli": "^6.12.2",
+    "moch": "^0.0.1",
     "mocha": "^10.2.0",
     "prettier": "^2.8.8",
-    "solc": "^0.4.26",
+    "solc": "^0.8.20",
     "web3": "^1.10.0"
   }
 }

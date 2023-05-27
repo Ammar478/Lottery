@@ -1,39 +1,38 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.24 <0.9.0;
+pragma solidity >=0.5.0 <0.9.0;
 
-contract Lottery{
-    address public manager;
-    address[]  public players;
+contract Lottery {
+  address public manager;
+  address payable[] public players;
 
-    constructor (){
-        manager=msg.sender; 
-    }
+  constructor() {
+    manager = msg.sender;
+  }
 
-    function enter()public payable{
-        require(msg.value>0.1 ether);
-        players.push(msg.sender);
-    }
+  function enter() public payable {
+    require(msg.value > 0.1 ether);
 
-    modifier restrected (){
-        require(msg.sender ==manager);
-        _;
-    }
+    players.push(payable(msg.sender));
+  }
 
-    function randomNumber()private view returns (uint){
-        return uint(keccak256(abi.encode(block.prevrandao , block.timestamp, players)));
-    }
+  modifier restrected() {
+    require(msg.sender == manager);
+    _;
+  }
 
-function pickWinner()public restrected{
-    uint winnerIndex = randomNumber()%players.length;
-  address payable winnerAddress= payable(players[winnerIndex]);
-  
-   winnerAddress.transfer(address(this).balance);
-    players= new address[](0);
+  function randomNumber() private view returns (uint) {
+    return uint(keccak256(abi.encode(block.prevrandao, block.timestamp, players)));
+  }
 
-}
+  function pickWinner() public restrected {
+    uint winnerIndex = randomNumber() % players.length;
+    uint amount = address(this).balance;
 
-function getPlayers()public view returns(address[] memory){
+    players[winnerIndex].transfer(amount);
+    players = new address payable[](0);
+  }
+
+  function getPlayers() public view returns (address payable[] memory) {
     return players;
-}
-
+  }
 }
