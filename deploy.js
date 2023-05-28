@@ -18,6 +18,7 @@ const deploy = async () => {
     .deploy({ data: bytecode })
     .send({ from: account[0], gas: 1000000 });
   console.log(result.options.address);
+  console.log(abi)
   HDProvider.engine.stop();
 };
 
